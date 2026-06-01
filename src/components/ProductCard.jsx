@@ -10,7 +10,6 @@ function ProductCard({ product }) {
         <Link to={`/products/${product.id}`} className="card-title">
           {product.name}
         </Link>
-        <p className="card-text">₹{product.price.toFixed(2)}</p>
         <Link className="btn btn-success d-flex justify-content-center align-items-center gap-2">
           <RiWhatsappLine />
           WhatsApp Order

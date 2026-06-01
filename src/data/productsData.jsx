@@ -5,7 +5,6 @@ const productsData = [
     dosage: "10mg",
     image: "/images/zopisign-10-mg-zopiclone-tablets.jpeg",
     description: "Sleep disorder medication",
-    price: 499,
   },
   {
     id: 2,
@@ -13,7 +12,6 @@ const productsData = [
     dosage: "150mg",
     image: "/images/pregablin-150mg.webp",
     description: "Neuropathic pain medication",
-    price: 549,
   },
   {
     id: 3,
@@ -21,7 +19,6 @@ const productsData = [
     dosage: "100mg",
     image: "/images/cenforce-100mg.jpg",
     description: "Erectile dysfunction medication",
-    price: 899,
   },
   {
     id: 4,
@@ -29,7 +26,6 @@ const productsData = [
     dosage: null,
     image: "/images/super-p-force-tablets.jpeg",
     description: "Combination medication",
-    price: 1199,
   },
   {
     id: 5,
@@ -37,7 +33,6 @@ const productsData = [
     dosage: "25mg",
     image: "/images/zopimaxx-25-mg-tablet.jpeg",
     description: "Prescription medicine",
-    price: 649,
   },
   {
     id: 6,
@@ -45,7 +40,6 @@ const productsData = [
     dosage: "300mg",
     image: "/images/pregablin-300.webp",
     description: "Neuropathic pain medication",
-    price: 799,
   },
   {
     id: 7,
@@ -53,7 +47,6 @@ const productsData = [
     dosage: "450mg",
     image: "/images/pregabalin-450-mg.jpg",
     description: "Neuropathic pain medication",
-    price: 999,
   },
   {
     id: 8,
@@ -61,7 +54,6 @@ const productsData = [
     dosage: "800mg",
     image: "/images/gabapentin-tablets-ip-800mg.jpg",
     description: "Nerve pain medication",
-    price: 749,
   },
   {
     id: 9,
@@ -69,7 +61,6 @@ const productsData = [
     dosage: "7.5mg",
     image: "/images/zopiclone-7-5mg.jpg",
     description: "Sleep aid medication",
-    price: 449,
   },
   {
     id: 10,
@@ -77,7 +68,6 @@ const productsData = [
     dosage: "100mg",
     image: "/images/kamagra-oral-jelly.jpg",
     description: "Oral jelly medication",
-    price: 799,
   },
 ];
 
