@@ -10,18 +10,34 @@ import {
 function SocialFab() {
   const [open, setOpen] = useState(false);
 
+  const phoneNumber = "918149106619";
+  const email = "";
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
+  const telegramUrl = "https://t.me/IntentLifeScienceGlobal";
+  const emailUrl = `mailto:${email}`;
+
   return (
     <div className="fab-wrapper">
       <div className={`fab-container ${open ? "open" : ""}`}>
         <div className="fab-menu">
-          <a href="#" className="social-mail">
-            <RiMailLine />
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            className="social-whatsapp"
+            rel="noreferrer"
+          >
+            <RiWhatsappLine />
           </a>
-          <a href="#" className="social-telegram">
+          <a
+            href={telegramUrl}
+            target="_blank"
+            className="social-telegram"
+            rel="noreferrer"
+          >
             <RiTelegram2Fill />
           </a>
-          <a href="#" className="social-whatsapp">
-            <RiWhatsappLine />
+          <a href="#" className="social-mail">
+            <RiMailLine />
           </a>
         </div>
 

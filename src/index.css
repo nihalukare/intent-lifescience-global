@@ -64,7 +64,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
 
-  /* background: #25d366; */
   color: #f60000;
   font-size: 13px;
   font-weight: 700;
@@ -72,11 +71,8 @@ body {
   text-transform: uppercase;
   white-space: nowrap;
 
-  padding: 4px 10px 8px; /* extra bottom pad curves into the button */
-  border-radius: 20px 20px 0 0; /* flat bottom, rounded top = dome */
-
-  /* subtle shadow to lift it */
-  /* box-shadow: 0 -2px 6px rgba(37, 211, 102, 0.35); */
+  padding: 4px 10px 8px;
+  border-radius: 20px 20px 0 0;
 }
 
 .fab-toggle {
