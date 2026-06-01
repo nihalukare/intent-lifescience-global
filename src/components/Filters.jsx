@@ -8,7 +8,7 @@ function Filters() {
   const visiblCategories = categories.slice(0, visibleCount);
 
   return (
-    <div className="bg-primary-subtle py-4 px-5 rounded">
+    <div className="bg-primary-subtle p-sm-3 py-4 px-5 rounded">
       <h2>Filters</h2>
       <h3>Categories</h3>
 

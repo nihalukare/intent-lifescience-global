@@ -20,12 +20,6 @@ body {
   height: 60px;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
 .product-image-container {
   border: 1px solid #e5e5e5;
   border-radius: 12px;
@@ -36,4 +30,123 @@ body {
   width: 100%;
   max-height: 500px;
   object-fit: contain;
+}
+
+.fab-wrapper {
+  position: fixed;
+  right: 4%;
+  bottom: 2%;
+  z-index: 10;
+}
+
+.fab-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f8ff;
+  border-radius: 35px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  overflow: visible; /* important — lets the dome peek out */
+  width: 70px;
+}
+
+.fab-toggle-wrap {
+  position: relative;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Dome label */
+.socials-text {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* background: #25d366; */
+  color: #f60000;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  padding: 4px 10px 8px; /* extra bottom pad curves into the button */
+  border-radius: 20px 20px 0 0; /* flat bottom, rounded top = dome */
+
+  /* subtle shadow to lift it */
+  /* box-shadow: 0 -2px 6px rgba(37, 211, 102, 0.35); */
+}
+
+.fab-toggle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background: #25d366;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.fab-toggle:hover {
+  background: #1ebe5d;
+}
+.fab-container.open .fab-toggle {
+  background: #e53935;
+}
+
+/* rest stays the same */
+.fab-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 70px;
+  height: 0;
+  overflow: hidden;
+  transition:
+    height 0.35s ease,
+    padding 0.35s ease;
+}
+
+.fab-container.open .fab-menu {
+  height: 180px;
+  padding: 10px 0;
+}
+
+.fab-menu a {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.fab-menu a:hover {
+  transform: scale(1.1);
+}
+
+.social-mail {
+  background-color: #ea4335;
+}
+.social-telegram {
+  background-color: #0088cc;
+}
+.social-whatsapp {
+  background-color: #25d366;
 }

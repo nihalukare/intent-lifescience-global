@@ -6,9 +6,11 @@ import ProductCard from "./ProductCard";
 function Products() {
   return (
     <>
-      <div className="products-grid">
+      <div className="row g-3">
         {productsData.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <div key={product.id} className="col-6 col-md-4">
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </>

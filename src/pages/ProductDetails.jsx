@@ -25,7 +25,7 @@ function ProductDetails() {
             {product.name} - {product.dosage}
           </h2>
 
-          <p className="fs-2">₹{product.price.toFixed(2)}</p>
+          {/* <p className="fs-2">₹{product.price.toFixed(2)}</p> */}
 
           <Link className="btn btn-success w-50 p-2 d-flex justify-content-center align-items-center gap-2">
             <RiWhatsappLine />
