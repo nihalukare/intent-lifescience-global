@@ -443,7 +443,7 @@ body[data-bs-theme="dark"] {
 
 .socials-text {
   position: absolute;
-  top: -30px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
   /* background: var(--accent-color); */
