@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Flame } from "lucide-react";
+import {
+  Flame,
+  Lock,
+  MessageSquare,
+  Pill,
+  CreditCard,
+  Monitor,
+} from "lucide-react";
 import Filters from "../components/Filters";
 import Products from "../components/Products";
 import productsData from "../data/productsData";
@@ -71,7 +78,7 @@ function Home() {
       </div>
 
       {/* Infinite Product Carousel */}
-      <div className="infinite-carousel-container mb-4 mb-md-5">
+      <div className="infinite-carousel-container mb-md-4">
         <div className="infinite-carousel-track">
           {/* First loop of items */}
           {productsData.map((product) => (
@@ -84,10 +91,14 @@ function Home() {
                 <img src={product.image} alt={product.name} loading="lazy" />
               </div>
               <div className="carousel-card-content">
-                <h6 className="carousel-card-title">{product.name}</h6>
-                {product.dosage && (
-                  <span className="carousel-card-dosage">{product.dosage}</span>
-                )}
+                <h6 className="carousel-card-title">
+                  {product.name}
+                  {product.dosage && (
+                    <span className="carousel-card-dosage">
+                      {product.dosage}
+                    </span>
+                  )}
+                </h6>
               </div>
             </Link>
           ))}
@@ -109,6 +120,33 @@ function Home() {
               </div>
             </Link>
           ))}
+        </div>
+      </div>
+      {/* Trust Strip — full-bleed band */}
+      <div className="trust-strip-band mb-4">
+        <div className="container">
+          <div className="trust-strip-inner">
+            <div className="trust-strip-item">
+              <Lock size={16} className="trust-strip-icon" />
+              <span className="trust-strip-label">Discreet Shipping</span>
+            </div>
+            <div className="trust-strip-item">
+              <MessageSquare size={16} className="trust-strip-icon" />
+              <span className="trust-strip-label">Live Chat Support</span>
+            </div>
+            <div className="trust-strip-item">
+              <Pill size={16} className="trust-strip-icon" />
+              <span className="trust-strip-label">Quality Pills Only</span>
+            </div>
+            <div className="trust-strip-item">
+              <CreditCard size={16} className="trust-strip-icon" />
+              <span className="trust-strip-label">Multiple Payments</span>
+            </div>
+            <div className="trust-strip-item">
+              <Monitor size={16} className="trust-strip-icon" />
+              <span className="trust-strip-label">Order Tracking</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -224,13 +262,12 @@ function Home() {
               products
             </p>
 
-            <div className="w-100 w-sm-auto">
+            <div className="sort-wrapper">
               <select
                 type="text"
                 className="form-select w-100"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                style={{ minWidth: "200px" }}
               >
                 <option value="">Default Sorting</option>
                 <option value="popularity">Sort by popularity</option>
