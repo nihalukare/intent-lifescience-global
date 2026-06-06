@@ -27,7 +27,7 @@ function SocialFab() {
             rel="noreferrer"
             title="Chat on WhatsApp"
           >
-            <RiWhatsappLine size={24} />
+            <RiWhatsappLine size={24} color={"#25d366"} />
           </a>
           <a
             href={telegramUrl}
@@ -36,14 +36,10 @@ function SocialFab() {
             rel="noreferrer"
             title="Join Telegram"
           >
-            <RiTelegram2Fill size={24} />
+            <RiTelegram2Fill size={24} color={"#0078D4"} />
           </a>
-          <a
-            href={emailUrl}
-            className="social-mail"
-            title="Email Us"
-          >
-            <RiMailLine size={24} />
+          <a href={emailUrl} className="social-mail" title="Email Us">
+            <RiMailLine size={24} color={"#EA4335"} />
           </a>
         </div>
 
