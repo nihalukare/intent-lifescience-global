@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Flame } from "lucide-react";
 import Filters from "../components/Filters";
 import Products from "../components/Products";
 import productsData from "../data/productsData";
@@ -56,16 +58,59 @@ function Home() {
     });
 
   return (
-    <div className="container py-4 py-md-5">
-      {/* Intro Header */}
-      {/* <div className="text-center mb-5 d-none d-md-block">
-        <h2 className="fw-extrabold mb-2" style={{ fontSize: "2.5rem", letterSpacing: "-1px" }}>
-          Product Brochure Catalog
-        </h2>
-        <p className="text-muted mx-auto" style={{ maxWidth: "600px", fontSize: "1.1rem" }}>
-          Explore our certified healthcare, psychiatric, and nerve relief formulations. Reach out directly via WhatsApp for quick enquiries and stock availability.
-        </p>
-      </div> */}
+    <div className="container py-4 py-md-3">
+      {/* Infinite Product Carousel Section Header */}
+      <div className="mb-md-2 text-center px-2">
+        <div className="d-flex align-items-center justify-content-center gap-2 mb-md-2">
+          <span className="trending-badge">
+            <Flame size={13} className="me-1" />
+            Trending Now
+          </span>
+        </div>
+        <h2 className="carousel-section-title">Our Hot Selling Products</h2>
+      </div>
+
+      {/* Infinite Product Carousel */}
+      <div className="infinite-carousel-container mb-4 mb-md-5">
+        <div className="infinite-carousel-track">
+          {/* First loop of items */}
+          {productsData.map((product) => (
+            <Link
+              to={`/products/${product.id}`}
+              key={`carousel-1-${product.id}`}
+              className="carousel-card text-decoration-none"
+            >
+              <div className="carousel-card-img-wrap">
+                <img src={product.image} alt={product.name} loading="lazy" />
+              </div>
+              <div className="carousel-card-content">
+                <h6 className="carousel-card-title">{product.name}</h6>
+                {product.dosage && (
+                  <span className="carousel-card-dosage">{product.dosage}</span>
+                )}
+              </div>
+            </Link>
+          ))}
+          {/* Second loop of identical items for seamless scrolling */}
+          {productsData.map((product) => (
+            <Link
+              to={`/products/${product.id}`}
+              key={`carousel-2-${product.id}`}
+              className="carousel-card text-decoration-none"
+            >
+              <div className="carousel-card-img-wrap">
+                <img src={product.image} alt={product.name} loading="lazy" />
+              </div>
+              <div className="carousel-card-content">
+                <h6 className="carousel-card-title">{product.name}</h6>
+                {product.dosage && (
+                  <span className="carousel-card-dosage">{product.dosage}</span>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <div className="row g-4">
         {/* Sidebar for Desktop */}
