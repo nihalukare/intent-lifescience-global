@@ -811,7 +811,7 @@ body[data-bs-theme="dark"] {
 }
 
 .trust-strip-label {
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-secondary);
   letter-spacing: 0.15px;
@@ -829,7 +829,7 @@ body[data-bs-theme="dark"] {
     padding: 0.6rem 0;
   }
   .trust-strip-label {
-    font-size: 0.72rem;
+    font-size: 0.81rem;
   }
   .trust-strip-icon {
     width: 14px;
