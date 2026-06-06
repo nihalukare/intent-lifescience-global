@@ -1,29 +1,33 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { RiWhatsappLine } from "@remixicon/react";
 import WhatsAppButton from "./WhatsappBtn";
+import categories from "../data/categoriesData";
 
 function ProductCard({ product }) {
-  const message = `
-  Hi 👋 Thanks for your enquiry😊
+  // Find category name
+  const category = categories.find((c) => c.slug === product.categorySlug);
+  const categoryName = category ? category.name : "Healthcare";
 
-💊 Please share: Medicine Name + Strength + Quantity
-✅ I’ll check availability & send you the best price quotation quickly
-  `;
   return (
-    <div className="card mb-5">
-      <img className="card-img-top" src={`${product.image}`} alt="no-image" />
-      <div className="card-body text-center">
-        <div className="mb-3">
-          <Link
-            to={`/products/${product.id}`}
-            className="card-title fw-medium fs-4 mb-3"
-          >
-            {product.name}
-          </Link>
+    <div className="product-grid-card">
+      <Link to={`/products/${product.id}`} className="product-img-wrap">
+        <img src={product.image} alt={product.name} loading="lazy" />
+        <span className="card-badge">{categoryName}</span>
+      </Link>
+      
+      <div className="product-card-body">
+        <Link to={`/products/${product.id}`} className="product-card-title">
+          {product.name}
+        </Link>
+        
+        {product.dosage && (
+          <div className="product-card-dosage">{product.dosage}</div>
+        )}
+        
+        <p className="product-card-desc">{product.description}</p>
+        
+        <div className="mt-auto pt-2">
+          <WhatsAppButton productName={product.name} />
         </div>
-
-        <WhatsAppButton productName={product.name} />
       </div>
     </div>
   );

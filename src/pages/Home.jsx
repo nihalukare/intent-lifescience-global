@@ -1,106 +1,243 @@
-import React from "react";
+import { useState } from "react";
 import Filters from "../components/Filters";
 import Products from "../components/Products";
 import productsData from "../data/productsData";
-import { RiSearchLine } from "@remixicon/react";
+import { RiSearchLine, RiFilterLine, RiCloseLine } from "@remixicon/react";
 
 function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [sortBy, setSortBy] = useState("");
+
+  const handleCategoryChange = (slug) => {
+    setSelectedCategories((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug],
+    );
+  };
+
+  const handleClearAll = () => {
+    setSearchQuery("");
+    setSelectedCategories([]);
+    setSortBy("");
+  };
+
+  // Filter & Sort Products
+  const filteredProducts = productsData
+    .filter((product) => {
+      const matchesSearch =
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(product.categorySlug);
+
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === "popularity") {
+        return a.popularity - b.popularity;
+      }
+      if (sortBy === "rating") {
+        return b.rating - a.rating;
+      }
+      if (sortBy === "latest") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+      if (sortBy === "price-asc") {
+        // Sort alphabetically by name (low to high representation)
+        return a.name.localeCompare(b.name);
+      }
+      if (sortBy === "price-desc") {
+        // Sort reverse-alphabetically by name (high to low representation)
+        return b.name.localeCompare(a.name);
+      }
+      return 0; // Default sorting (by ID)
+    });
+
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4 py-3">
-          {/* Mobile Controls */}
-          <div className="d-flex gap-2 d-md-none mb-3">
-            <button
-              className="btn btn-outline-primary"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#filtersOffcanvas"
-            >
-              Categories
-            </button>
+    <div className="container py-4 py-md-5">
+      {/* Intro Header */}
+      {/* <div className="text-center mb-5 d-none d-md-block">
+        <h2 className="fw-extrabold mb-2" style={{ fontSize: "2.5rem", letterSpacing: "-1px" }}>
+          Product Brochure Catalog
+        </h2>
+        <p className="text-muted mx-auto" style={{ maxWidth: "600px", fontSize: "1.1rem" }}>
+          Explore our certified healthcare, psychiatric, and nerve relief formulations. Reach out directly via WhatsApp for quick enquiries and stock availability.
+        </p>
+      </div> */}
 
-            <div className="flex-grow-1">
-              <form>
-                <div className="input-group">
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Search products..."
-                  />
-                  <button className="btn btn-outline-secondary" type="submit">
-                    <RiSearchLine />
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          {/* Desktop Search */}
-          <div className="d-none d-md-block mb-3">
-            <form>
-              <div className="mb-3">
+      <div className="row g-4">
+        {/* Sidebar for Desktop */}
+        <div className="col-md-4 col-xl-3 d-none d-md-block">
+          <div className="sticky-top" style={{ top: "100px", zIndex: 10 }}>
+            {/* Desktop Search */}
+            <div className="mb-4">
+              <form onSubmit={(e) => e.preventDefault()}>
                 <label
-                  className="form-label fw-medium fs-5"
+                  className="form-label fw-semibold fs-5 mb-2"
                   htmlFor="searchProduct"
                 >
                   Search
                 </label>
-                <div className="input-group mb-3">
+                <div className="input-group">
                   <input
+                    id="searchProduct"
                     className="form-control"
                     type="text"
                     placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <button className="btn btn-outline-secondary" type="submit">
-                    <RiSearchLine />
-                  </button>
+                  <span className="input-group-text bg-transparent text-muted border-start-0 border-end border-top border-bottom">
+                    <RiSearchLine size={18} />
+                  </span>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+
+            {/* Filters sidebar panel */}
+            <Filters
+              selectedCategories={selectedCategories}
+              onCategoryChange={handleCategoryChange}
+            />
+
+            {/* Clear All button */}
+            {(selectedCategories.length > 0 ||
+              searchQuery !== "" ||
+              sortBy !== "") && (
+              <button
+                className="btn btn-outline-danger w-100 mt-3 d-flex align-items-center justify-content-center gap-2"
+                onClick={handleClearAll}
+              >
+                <RiCloseLine size={18} /> Clear Filters
+              </button>
+            )}
           </div>
-          <aside className="d-none d-md-block">
-            <Filters />
-          </aside>
         </div>
 
-        {/* Products */}
-        <div className="col-md-8 py-md-5 py-3">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <p>Showing {productsData.length} products</p>
-            <div>
-              <select type="text" className="form-select">
+        {/* Catalog Body */}
+        <div className="col-md-8 col-xl-9">
+          {/* Mobile Controls Panel */}
+          <div className="d-md-none mb-4">
+            <div className="d-flex gap-2">
+              <button
+                className="btn btn-primary d-flex align-items-center gap-2"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#filtersOffcanvas"
+              >
+                <RiFilterLine size={18} /> Categories
+                {selectedCategories.length > 0 && (
+                  <span className="badge bg-danger rounded-pill">
+                    {selectedCategories.length}
+                  </span>
+                )}
+              </button>
+
+              <div className="flex-grow-1">
+                <form onSubmit={(e) => e.preventDefault()}>
+                  <div className="input-group">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="Search products..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button
+                      className="btn btn-outline-secondary border-start-0"
+                      type="submit"
+                    >
+                      <RiSearchLine size={18} />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            {/* Clear all active filters alert banner for Mobile */}
+            {(selectedCategories.length > 0 ||
+              searchQuery !== "" ||
+              sortBy !== "") && (
+              <div className="mt-3 d-flex align-items-center justify-content-between p-2 bg-secondary bg-opacity-10 border rounded-3">
+                <span className="text-secondary small">Filters active</span>
+                <button
+                  className="btn btn-link btn-sm p-0 text-danger text-decoration-none fw-bold"
+                  onClick={handleClearAll}
+                >
+                  Reset All
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Catalog Top bar */}
+          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
+            <p className="mb-0 text-secondary fw-semibold">
+              Showing {filteredProducts.length} of {productsData.length}{" "}
+              products
+            </p>
+
+            <div className="w-100 w-sm-auto">
+              <select
+                type="text"
+                className="form-select w-100"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                style={{ minWidth: "200px" }}
+              >
                 <option value="">Default Sorting</option>
-                <option value="">Sort by popularity</option>
-                <option value="">Sort by average rating</option>
-                <option value="">Sort by latest</option>
-                <option value="">Sort by price: low to high</option>
-                <option value="">Sort by price: high to low</option>
+                <option value="popularity">Sort by popularity</option>
+                <option value="rating">Sort by average rating</option>
+                <option value="latest">Sort by latest</option>
+                <option value="price-asc">Sort by name: A to Z</option>
+                <option value="price-desc">Sort by name: Z to A</option>
               </select>
             </div>
           </div>
-          <Products />
+
+          {/* Products List component */}
+          <Products products={filteredProducts} />
         </div>
       </div>
 
-      {/* Offcanvas */}
+      {/* Offcanvas Drawer for Mobile Filters */}
       <div
         className="offcanvas offcanvas-start"
         tabIndex="-1"
         id="filtersOffcanvas"
+        style={{
+          maxWidth: "320px",
+          borderRight: "1px solid var(--border-color)",
+        }}
       >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title">Categories</h5>
-
+        <div className="offcanvas-header border-bottom">
+          <h5 className="offcanvas-title fw-bold">Select Categories</h5>
           <button
             type="button"
             className="btn-close"
             data-bs-dismiss="offcanvas"
+            aria-label="Close"
           ></button>
         </div>
 
-        <div className="offcanvas-body">
-          <Filters />
+        <div className="offcanvas-body p-4">
+          <Filters
+            selectedCategories={selectedCategories}
+            onCategoryChange={handleCategoryChange}
+          />
+          {(selectedCategories.length > 0 ||
+            searchQuery !== "" ||
+            sortBy !== "") && (
+            <button
+              className="btn btn-outline-danger w-100 mt-4 d-flex align-items-center justify-content-center gap-2"
+              onClick={handleClearAll}
+              data-bs-dismiss="offcanvas"
+            >
+              <RiCloseLine size={18} /> Clear All Filters
+            </button>
+          )}
         </div>
       </div>
     </div>

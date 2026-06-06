@@ -1,41 +1,58 @@
-import React, { useState } from "react";
-import { MoveUp, MoveDown } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import categories from "../data/categoriesData";
 
-function Filters() {
-  const [visibleCount, setVisibleCount] = useState(15);
+function Filters({ selectedCategories = [], onCategoryChange }) {
+  const [visibleCount, setVisibleCount] = useState(12);
 
-  const visiblCategories = categories.slice(0, visibleCount);
+  const visibleCategories = categories.slice(0, visibleCount);
+
+  const handleToggleCount = () => {
+    if (visibleCount >= categories.length) {
+      setVisibleCount(12);
+    } else {
+      setVisibleCount(prev => Math.min(prev + 12, categories.length));
+    }
+  };
 
   return (
-    <div className="bg-primary-subtle p-sm-3 py-4 px-5 rounded">
+    <div className="filters-panel">
       <h2>Filters</h2>
       <h3>Categories</h3>
 
-      {visiblCategories?.map((category) => (
-        <div className="form-check mb-3" key={category.id}>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id={`${category.slug}`}
-          />
-          <label className="form-check-label" htmlFor={`${category.slug}`}>
-            {category.name}
-          </label>
-        </div>
-      ))}
+      <div className="d-flex flex-column mb-3">
+        {visibleCategories.map((category) => {
+          const isChecked = selectedCategories.includes(category.slug);
+          return (
+            <label className="custom-checkbox" key={category.id} htmlFor={category.slug}>
+              <input
+                type="checkbox"
+                id={category.slug}
+                checked={isChecked}
+                onChange={() => onCategoryChange && onCategoryChange(category.slug)}
+              />
+              <span className="checkmark"></span>
+              <span>{category.name}</span>
+            </label>
+          );
+        })}
+      </div>
 
       <button
-        className="btn btn-link"
-        onClick={() => {
-          visibleCount >= categories.length
-            ? setVisibleCount(15)
-            : setVisibleCount(visibleCount + 5);
-        }}
+        className="btn btn-link p-0 text-decoration-none d-flex align-items-center gap-1 fw-semibold text-accent"
+        onClick={handleToggleCount}
+        style={{ fontSize: "0.9rem" }}
       >
-        {visibleCount >= categories.length ? "view less" : "view more"}
+        {visibleCount >= categories.length ? (
+          <>
+            View Less <ChevronUp size={16} />
+          </>
+        ) : (
+          <>
+            View More ({categories.length - visibleCount} more) <ChevronDown size={16} />
+          </>
+        )}
       </button>
-      {/* {visibleCount >= categories.length ? <MoveUp /> : <MoveDown />} */}
     </div>
   );
 }
