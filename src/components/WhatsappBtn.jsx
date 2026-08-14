@@ -4,12 +4,8 @@ import { Link } from "react-router-dom";
 function WhatsAppButton({ productName }) {
   const phoneNumber = "918149713321";
 
-  const message = `Hi 👋 Thanks for your enquiry😊
-
-I am interested in: ${productName}
-
-💊 Please share: Medicine Name + Strength + Quantity
-✅ I'll check availability & send you the best price quotation quickly`;
+  const message = `Hi 👋 
+  I am interested in: ${productName}`;
 
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
