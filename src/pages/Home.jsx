@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Flame,
-  Lock,
-  MessageSquare,
-  Pill,
-  CreditCard,
-  Monitor,
-} from "lucide-react";
+
 import Filters from "../components/Filters";
 import Products from "../components/Products";
 import productsData from "../data/productsData";
 import { RiSearchLine, RiFilterLine, RiCloseLine } from "@remixicon/react";
+import TrustStrip from "../components/TrustStrip";
+import ProductCarousel from "../components/ProductCarousel";
+import MainHeading from "../components/MainHeading";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,88 +63,13 @@ function Home() {
   return (
     <div className="container py-4 py-md-3">
       {/* Infinite Product Carousel Section Header */}
-      <div className="mb-md-2 text-center px-2">
-        <div className="d-flex align-items-center justify-content-center gap-2 mb-md-2">
-          <span className="trending-badge">
-            <Flame size={13} className="me-1" />
-            Trending Now
-          </span>
-        </div>
-        <h2 className="carousel-section-title">Our Hot Selling Products</h2>
-      </div>
+      <MainHeading />
 
       {/* Infinite Product Carousel */}
-      <div className="infinite-carousel-container mb-md-4">
-        <div className="infinite-carousel-track">
-          {/* First loop of items */}
-          {productsData.map((product) => (
-            <Link
-              to={`/products/${product.id}`}
-              key={`carousel-1-${product.id}`}
-              className="carousel-card text-decoration-none"
-            >
-              <div className="carousel-card-img-wrap">
-                <img src={product.image} alt={product.name} loading="lazy" />
-              </div>
-              <div className="carousel-card-content">
-                <h6 className="carousel-card-title">
-                  {product.name}
-                  {product.dosage && (
-                    <span className="carousel-card-dosage">
-                      {product.dosage}
-                    </span>
-                  )}
-                </h6>
-              </div>
-            </Link>
-          ))}
-          {/* Second loop of identical items for seamless scrolling */}
-          {productsData.map((product) => (
-            <Link
-              to={`/products/${product.id}`}
-              key={`carousel-2-${product.id}`}
-              className="carousel-card text-decoration-none"
-            >
-              <div className="carousel-card-img-wrap">
-                <img src={product.image} alt={product.name} loading="lazy" />
-              </div>
-              <div className="carousel-card-content">
-                <h6 className="carousel-card-title">{product.name}</h6>
-                {product.dosage && (
-                  <span className="carousel-card-dosage">{product.dosage}</span>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <ProductCarousel />
+
       {/* Trust Strip — full-bleed band */}
-      <div className="trust-strip-band mb-4">
-        <div className="container">
-          <div className="trust-strip-inner">
-            <div className="trust-strip-item">
-              <Lock size={16} className="trust-strip-icon" />
-              <span className="trust-strip-label">Discreet Shipping</span>
-            </div>
-            <div className="trust-strip-item">
-              <MessageSquare size={16} className="trust-strip-icon" />
-              <span className="trust-strip-label">Live Chat Support</span>
-            </div>
-            <div className="trust-strip-item">
-              <Pill size={16} className="trust-strip-icon" />
-              <span className="trust-strip-label">Quality Pills Only</span>
-            </div>
-            <div className="trust-strip-item">
-              <CreditCard size={16} className="trust-strip-icon" />
-              <span className="trust-strip-label">Multiple Payments</span>
-            </div>
-            <div className="trust-strip-item">
-              <Monitor size={16} className="trust-strip-icon" />
-              <span className="trust-strip-label">Order Tracking</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <TrustStrip />
 
       <div className="row g-4">
         {/* Sidebar for Desktop */}
